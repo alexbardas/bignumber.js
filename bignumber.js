@@ -1,0 +1,345 @@
+/*!
+ * n.js
+ * Copyright(c) 2012 Alex Bardsa <alexbardas@gmail.com>
+ * MIT Licensed
+ * It supports the following operations:
+ *      addition, substraction, multiplication, division, power, absolute value
+ *      for both positive and negative integers
+ */
+ 
+;(function(exports, undefined) {
+    // tests if character is a digit
+    var test_digit = function(digit) {
+        return (/^\d$/.test(digit));
+    }
+
+    exports.n = function (number) {
+        return new BigNumber(number);
+    };
+    exports.version = "0.1";
+    var error = {
+        0: "Invalid Number",
+        1: "Invalid Number - Division By Zero"
+    }
+    // constructor function which creates a new BigNumber object
+    // from an integer, a string, an array or other BigNumber object
+    // if new_copy is true, the function returns a new object instance
+    var BigNumber = function(x, new_copy) {
+        var i;
+        this.number = [];
+        this.sign = 1;
+        this.rest = 0;
+
+        if (!x) {
+            this.number = [0];
+            return;
+        }
+
+        if (x.constructor === BigNumber) {
+            return new_copy ? new BigNumber(x.toString()) : x;
+       }
+
+        // x can be an array or object
+        // eg array: [3,2,1], ['+',3,2,1], ['-',3,2,1]
+        // eg string: '321', '+321', -321'
+        // every character except the first must be a digit
+
+        if (typeof x == "object") {
+            if (x.length && x[0] === '-' || x[0] === '+') {
+                this.sign = x[0] === '+' ? 1 : -1;
+                x.shift(0);
+            }
+            for (i=x.length-1; i>=0; --i) {
+                if (!this.add_digit(x[i], x))
+                    return;
+            }
+        }
+
+        else {
+            x = x.toString();
+            if (x.charAt(0) === '-' || x.charAt(0) === '+') {
+                this.sign = x.charAt(0) === '+' ? 1 : -1;
+                x = x.substring(1);
+            }
+            
+            for (i=x.length-1; i>=0; --i)
+                if (!this.add_digit(parseInt(x.charAt(i)), x))
+                    return
+        }
+    }
+
+    BigNumber.prototype.add_digit = function(digit, x) {
+        if (test_digit(digit))
+            this.number.push(digit);
+        else {
+            //throw (x || digit) + " is not a valid number";
+            this.number = "Invalid Number";
+            return false;
+        }
+
+        return this;
+    }
+
+    // returns:
+    //      0 if this.number == n
+    //      -1 if this.number < n
+    //      1 if this.number > n
+    BigNumber.prototype.compare = function(n) {
+        // if the function is called with no arguments then return 0
+        if (!n)
+            return 0;
+
+        var x = new BigNumber(n), i;
+
+        //test numbers sign
+        if (this.sign !== x.sign)
+            return this.sign;
+
+        // test numbers length
+        if (this.number.length > x.number.length)
+            return this.sign;
+        else if (this.number.length < x.number.length)
+            return this.sign*(-1);
+        
+        for (i=this.number.length-1; i>=0; --i) {
+            if (this.number[i] > x.number[i])
+                return this.sign;
+            else if (this.number[i] < x.number[i])
+                return this.sign*(-1);
+        }
+        
+        return 0;
+    }
+
+    // greater than
+    BigNumber.prototype.gt = function(n) {
+        return this.compare(n);
+    }
+
+    // greater or equal than
+    BigNumber.prototype.ge = function(n) {
+        return this.compare(n) >= 0;
+    }
+
+    // this.number equals n
+    BigNumber.prototype.equals = function(n) {
+        return this.compare(n) === 0;
+    }
+
+    // less or equal than
+    BigNumber.prototype.le = function(n) {
+        return this.compare(n) <= 0;
+    }
+
+    // less than
+    BigNumber.prototype.lt = function(n) {
+        return this.compare(n) < 0;
+    }
+
+    // this.number + n
+    BigNumber.prototype.add = function(n) {
+        // if the function is called with no arguments then return
+        if (!n)
+            return this;
+        var x = new BigNumber(n);
+
+        if (this.sign !== x.sign) {
+            if (this.sign > 0) {
+                x.sign = 1;
+                return this.minus(x);
+            }
+            else {
+                this.sign = 1;
+                return x.minus(this);
+            }
+        }
+
+        this.number = BigNumber._add(this, x);
+        return this;
+    }
+
+    // this.number - n
+    BigNumber.prototype.substract = function(n) {
+        // if the function is called with no arguments then return
+        if (!n)
+            return this;
+        var x = new BigNumber(n);
+
+        if (this.sign !== x.sign) {
+            this.number = BigNumber._add(this, x);
+            return this;
+        }
+
+        // if current number is lesser than x, final result will be negative
+        (this.lt(x)) ? this.sign = -1 : this.sign = 1; 
+
+        (exports.abs(this).lt(exports.abs(x))) ?
+            this.number = BigNumber._substract(x, this) :
+            this.number = BigNumber._substract(this, x);
+
+        return this;
+    }
+
+    // adds two positive BigNumbers
+    BigNumber._add = function(a, b) {
+        var i, remainder = 0, length = Math.max(a.number.length, b.number.length);
+        
+        for (i=0; i<length || remainder>0; ++i) {
+            a.number[i] = (remainder += (a.number[i] || 0) + (b.number[i] || 0)) % 10;
+            remainder = Math.floor(remainder/10)
+        }
+
+        return a.number;
+    }
+
+    // decreases b from a
+    // a and b are 2 positive BigNumbers and a > b
+    BigNumber._substract = function(a, b) {
+        var i, remainder = 0, length = a.number.length;
+
+        for (i=0; i<length; ++i) {
+            a.number[i] -= (b.number[i] || 0) + remainder;
+            a.number[i] += (remainder = (a.number[i] < 0) ? 1 : 0) * 10; 
+        }
+        // let's optimize a bit, and count the zeroes which need to be removed
+        i = 0, length = a.number.length-1;
+        while (a.number[length-i] === 0 && length-i > 0)
+            i++;
+        if (i>0)
+            a.number.splice(-i);
+        return a.number;
+    }
+
+    // this.number * n
+    BigNumber.prototype.multiply = function(n) {
+        // if the function is called with no arguments then return
+        if (!n && n != 0)
+            return this;
+        var x = new BigNumber(n), i, j, remainder = 0, result = [];
+        // test if one of the numbers is zero
+        if (this.isZero() || x.isZero()) {
+            return new BigNumber(0);
+        }
+
+        this.sign *= x.sign;
+
+        // multiply the numbers
+        for (i=0; i<this.number.length; ++i) {
+            for (remainder=0, j=0; j<x.number.length || remainder>0; ++j) {
+                result[i+j] = (remainder += (result[i+j] || 0) + this.number[i]*(x.number[j] || 0))%10;
+                remainder = Math.floor(remainder/10);
+            }
+        }
+
+        this.number = result;
+        return this;
+    }
+
+    // this.number / n
+    BigNumber.prototype.divide = function(n) {
+        // if the function is called with no arguments then return
+        if (!n && n != 0)
+            return this;
+        var x = new BigNumber(n), i, j, length, remainder = 0, result = [], rest = new BigNumber();
+        // test if one of the numbers is zero
+        if (x.isZero()) {
+            this.number = "Invalid Number - Division By Zero";
+            return this;
+        }
+        else if (this.isZero()) {
+            return new BigNumber(0);
+        }
+        this.sign *= x.sign;
+        x.sign = 1;
+        // every number divided by 1 is the same number, so don't waste time dividing them
+        if (x.number.length === 1 && x.number[0] === 1)
+            return this;
+
+        for (i=this.number.length-1; i>=0; i--) {
+            rest.multiply(10);
+            rest.number[0] = this.number[i];
+            result[i] = 0;
+            while (x.le(rest)) {
+                result[i]++;
+                rest.substract(x);
+            }
+        }
+
+        i = 0, length = result.length-1;
+        while (result[length-i] === 0 && length-i > 0)
+            i++;
+        if (i>0)
+            result.splice(-i);
+
+        // returns the rest as a string
+        this.rest = rest.number.reverse().join().replace(/,/g,'');
+        this.number = result
+        return this;
+    }
+
+    // n must be a positive number
+    BigNumber.prototype.power = function(n) {
+        if (!n && n !== 0)
+            return;
+        var num = new BigNumber(this, true);
+        n = parseInt(n);
+        if (n === 0)
+            return new BigNumber(1);
+        if (n === 1)
+            return this;
+            
+        this.number = [1];
+        while (n > 0) {
+            if (n % 2 === 1) {
+                this.multiply(num);
+                n--;
+                continue;
+            }
+            num.multiply(num);
+            n = Math.floor(n/2);
+        }
+
+        return this;
+    }
+
+    // |this.number|
+    BigNumber.prototype.abs = function() {
+        this.sign = 1;
+        return this;
+    }
+
+    // |BigNumber|
+    exports.abs = function(n) {
+        // if the function is called with no arguments then return
+        if (!n)
+            return;
+        var x = new BigNumber(n, true);
+        x.sign = 1;
+        return x;
+    }
+
+    // is this.number == 0 ?
+    BigNumber.prototype.isZero = function() {
+        return (this.number.length === 1 && this.number[0] === 0) 
+    }
+
+    // this.number.toString()
+    BigNumber.prototype.toString = function() {
+        var i, x = '';
+        if (typeof this.number === "string")
+            return this.number;
+
+        for (i=this.number.length-1; i>=0; --i)
+            x += this.number[i];
+
+        return (this.sign > 0) ? x : ('-' + x);
+    }
+
+    // map some functions name
+    BigNumber.prototype.plus = BigNumber.prototype.add;
+    BigNumber.prototype.minus = BigNumber.prototype.substract;
+    BigNumber.prototype.div = BigNumber.prototype.divide;
+    BigNumber.prototype.mult = BigNumber.prototype.multiply;
+    BigNumber.prototype.pow = BigNumber.prototype.power;
+    BigNumber.prototype.val = BigNumber.prototype.toString;
+})(this);
