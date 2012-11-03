@@ -1,5 +1,7 @@
 ## BigNumber.js
 
+[![Build Status](https://secure.travis-ci.org/alexbardas/bignumber.js.png)](http://travis-ci.org/alexbardas/bignumber.js)
+
 BigNumber.js is a light javascript library for node.js and the browser, dealing
 with operations on big integers.
 
@@ -8,6 +10,8 @@ but it does it `very well and very fast`.
 
 It is build with performance in mind and supports all basic arithmetic operations
 (+, -, *, /, ^, abs). Works with both positive and negative integers.
+
+[![build status](https://secure.travis-ci.org/substack/node-bigint.png)](http://travis-ci.org/substack/node-bigint)
 
 Usage
 
