@@ -14,7 +14,7 @@ It is build with performance in mind and supports all basic arithmetic operation
 Usage
 
 ```javascript
-	var BigNumber = require('./index.js').n;
+	var BigNumber = require('big-number').n;
 
     BigNumber(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).pow(2)
     // 760056543044267246001
