@@ -1,0 +1,9 @@
+{
+    "name": "bignumber",
+    "version": "0.2.0",
+    "description": "ultra fast operations on big numbers",
+    "keywords": ["number", "big", "arithmetic", "operations"],
+    "author": "Alex Bardas <alexbardas@gmail.com>",
+    "repository": {"type": "git", "url": "git@github.com:alexbardas/bignumber.js.git" },
+    "engines": { "node": ">= 0.4.x" }
+}
