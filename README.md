@@ -49,6 +49,11 @@ Supported methods: `add/plus`, `minus/subtract`, `multiply/mult`, `divide/div`, 
 	BigNumber(2).div(10);
 ```
 
+###### Modulo
+```javascript
+	BigNumber(53).mod(14);
+```
+
 ###### Power
 ```javascript
 	BigNumber(2).power(10); // or

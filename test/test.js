@@ -194,6 +194,13 @@ describe('BigNumber.js', function() {
             BigNumber(100).divide(53).rest.val().should.equal("47");
         })
     }),
+    describe('#mod()', function() {
+        it('should return the remainder of 2 numbers division', function() {
+            BigNumber(7321).mod(153).val().should.equal("130");
+            BigNumber(3).mod(2).val().should.equal("1");
+            BigNumber(9).mod(3).val().should.equal("0");
+            BigNumber(93).mod(21).val().should.equal("9");
+            BigNumber(100).mod(53).val().should.equal("47");
         })
     }),
     describe('#pow()', function() {
