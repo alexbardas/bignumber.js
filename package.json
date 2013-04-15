@@ -1,6 +1,6 @@
 {
     "name": "big-number",
-    "version": "0.2.5",
+    "version": "0.3",
     "description": "Light, ultra-fast javascript implementation for BigIntegers (base arithmetic operations)",
     "keywords": ["number", "bigint", "bignumber", "big-number", "bignumbers", "arithmetic", "operations"],
     "author": "Alex Bardas <alexbardas@gmail.com>",
