@@ -187,11 +187,13 @@ describe('BigNumber.js', function() {
             BigNumber(99).divide(-17).val().should.equal("-5");
         }),
         it('should return the division rest', function() {
-             BigNumber(7321).divide(153).rest.should.equal("130");
-             BigNumber(3).divide(2).rest.should.equal("1");
-             BigNumber(9).divide(3).rest.should.equal("0");
-             BigNumber(93).divide(21).rest.should.equal("9");
-             BigNumber(100).divide(53).rest.should.equal("47");
+            BigNumber(7321).divide(153).rest.val().should.equal("130");
+            BigNumber(3).divide(2).rest.val().should.equal("1");
+            BigNumber(9).divide(3).rest.val().should.equal("0");
+            BigNumber(93).divide(21).rest.val().should.equal("9");
+            BigNumber(100).divide(53).rest.val().should.equal("47");
+        })
+    }),
         })
     }),
     describe('#pow()', function() {
