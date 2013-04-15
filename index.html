@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bignumber.js by alexbardas</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Bignumber.js</h1>
+        <p>Arithmetic operations on big numbers</p>
+
+        <p class="view"><a href="https://github.com/alexbardas/bignumber.js">View the Project on GitHub <small>alexbardas/bignumber.js</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/alexbardas/bignumber.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/alexbardas/bignumber.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/alexbardas/bignumber.js">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>BigNumber.js</h2>
+
+<p><a href="http://travis-ci.org/alexbardas/bignumber.js"><img src="https://secure.travis-ci.org/alexbardas/bignumber.js.png" alt="Build Status"></a></p>
+
+<p>BigNumber.js is a light javascript library for node.js and the browser, dealing
+with operations on big integers.</p>
+
+<p>It does one thing, implementing only the main arithmetic operations for big integers,
+but it does it <code>very well and very fast</code>.</p>
+
+<p>It is build with performance in mind and supports all basic arithmetic operations
+(+, -, *, /, ^, abs). Works with both positive and negative integers.</p>
+
+<p>Usage</p>
+
+<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">BigNumber</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'big-number'</span><span class="p">).</span><span class="nx">n</span><span class="p">;</span>
+
+    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">97</span><span class="p">).</span><span class="nx">minus</span><span class="p">(</span><span class="mi">53</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">434</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">5435423</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">321453</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">21</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c1">// 760056543044267246001</span>
+</pre></div>
+
+<h3>API</h3>
+
+<p>Supported methods: <code>add/plus</code>, <code>minus/subtract</code>, <code>multiply/mult</code>, <code>divide/div</code>, <code>power/pow</code>, <code>equals</code>,
+<code>lt</code>, <code>lte</code>, <code>gt</code>, <code>gte</code>, <code>isZero</code>, <code>abs</code></p>
+
+<h6>Addition</h6>
+
+<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+<h6>Subtraction</h6>
+
+<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">minus</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">subtract</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+<h6>Multiplication</h6>
+
+<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">mult</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+<h6>Division</h6>
+
+<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+<h6>Modulo</h6>
+
+<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">53</span><span class="p">).</span><span class="nx">mod</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+</pre></div>
+
+<h6>Power</h6>
+
+<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">power</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/alexbardas">alexbardas</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-40162269-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
