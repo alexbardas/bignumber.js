@@ -35,6 +35,29 @@
 <p>BigNumber.js is a light javascript library for node.js and the browser, dealing
 with operations on big integers.</p>
 
+<h2> Usage </h2>
+
+<p>Include &lt;script src="../bignumber.js"&gt;&lt;/script&gt; in source file<p>
+<p>
+The library exposes the function <strong>n( )</strong> in the global scope, representing the bignumber class. The bignumber object can be initialized with an integer, a number represented as a string or another bignumber (a <strong>n</strong> instance). The allowed operations are described below.
+</p>
+<h2> Demo </h2>
+
+<input id="n1" type="text" onkeypress='validate(event)' required />
+<select id="operation">
+  <option value="plus">plus</option>
+  <option value="minus">minus</option>
+  <option value="div">div</option>
+  <option value="mult">times</option>
+  <option value="pow">power</option>
+  <option value="mod">modulo</option>
+</select>
+<input id="n2" type="text" onkeypress='validate(event)' required />
+<button class="btn" style="width:50px" onclick="calculate()"> = </button>
+
+<h3> Result: </h3> <span id="result" style="font-weight:bold;"> </span>
+
+<div style="margin-top: 50px"></div>
 <p>It does one thing, implementing only the main arithmetic operations for big integers,
 but it does it <code>very well and very fast</code>.</p>
 
@@ -43,50 +66,50 @@ but it does it <code>very well and very fast</code>.</p>
 
 <p>Usage</p>
 
-<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">BigNumber</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'big-number'</span><span class="p">).</span><span class="nx">n</span><span class="p">;</span>
+<div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'big-number'</span><span class="p">).</span><span class="nx">n</span><span class="p">;</span>
 
-    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">97</span><span class="p">).</span><span class="nx">minus</span><span class="p">(</span><span class="mi">53</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">434</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">5435423</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">321453</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">21</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nx">n</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">97</span><span class="p">).</span><span class="nx">minus</span><span class="p">(</span><span class="mi">53</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">434</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">5435423</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">321453</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">21</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="c1">// 760056543044267246001</span>
 </pre></div>
 
 <h3>API</h3>
 
-<p>Supported methods: <code>add/plus</code>, <code>minus/subtract</code>, <code>multiply/mult</code>, <code>divide/div</code>, <code>power/pow</code>, <code>equals</code>,
+<p>Supported methods: <code>add/plus</code>, <code>minus/subtract</code>, <code>multiply/mult</code>, <code>divide/div</code>, <code>power/pow</code>, <code>mod</code>, <code>equals</code>,
 <code>lt</code>, <code>lte</code>, <code>gt</code>, <code>gte</code>, <code>isZero</code>, <code>abs</code></p>
 
 <h6>Addition</h6>
 
-<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
-    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">plus</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </pre></div>
 
 <h6>Subtraction</h6>
 
-<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">minus</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
-    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">subtract</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">minus</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">subtract</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </pre></div>
 
 <h6>Multiplication</h6>
 
-<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
-    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">mult</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">multiply</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">mult</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </pre></div>
 
 <h6>Division</h6>
 
-<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
-    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">divide</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </pre></div>
 
 <h6>Modulo</h6>
 
-<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">53</span><span class="p">).</span><span class="nx">mod</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nx">n</span><span class="p">(</span><span class="mi">53</span><span class="p">).</span><span class="nx">mod</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span>
 </pre></div>
 
 <h6>Power</h6>
 
-<div class="highlight"><pre>    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">power</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
-    <span class="nx">BigNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<div class="highlight"><pre>    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">power</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// or</span>
+    <span class="nx">n</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </pre></div>
       </section>
       <footer>
@@ -95,16 +118,37 @@ but it does it <code>very well and very fast</code>.</p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-40162269-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+        <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try {
+        var pageTracker = _gat._getTracker("UA-40162269-1");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+    <script src="https://raw.github.com/alexbardas/bignumber.js/master/lib/bignumber.js"></script>
+    <script>
+      function calculate() {
+        var n1 = document.getElementById("n1").value,
+            n2 = document.getElementById("n2").value,
+            operation = document.getElementById("operation").value;
 
+        var result = n(n1)[operation](n2).val();
+        document.getElementById("result").innerHTML = result;
+      }
+
+      function validate(evt) {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode( key );
+        var regex = /[0-9]|\./;
+        if( !regex.test(key) ) {
+          theEvent.returnValue = false;
+          if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+      }
+    </script>
   </body>
 </html>
