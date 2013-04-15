@@ -9,10 +9,13 @@ It does one thing, implementing only the main arithmetic operations for big inte
 but it does it `very well and very fast`.
 
 It is build with performance in mind and supports all basic arithmetic operations
-(+, -, *, /, ^, abs). Works with both positive and negative integers.
+(+, -, *, /, %, ^, abs). Works with both positive and negative integers.
 
-Usage
+You can do a live test here: (http://alexbardas.github.io/bignumber.js/)
 
+Usage:
+
+* in node:
 ```javascript
 	var BigNumber = require('big-number').n;
 
@@ -20,9 +23,17 @@ Usage
     // 760056543044267246001
 ```
 
+* in the browser:
+```javascript
+	<script src ="bignumber.js"></script>
+
+    n(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).pow(2)
+    // 760056543044267246001
+```
+
 ### API
 
-Supported methods: `add/plus`, `minus/subtract`, `multiply/mult`, `divide/div`, `power/pow`, `equals`,
+Supported methods: `add/plus`, `minus/subtract`, `multiply/mult`, `divide/div`, `power/pow`, `mod`, `equals`,
 `lt`, `lte`, `gt`, `gte`, `isZero`, `abs`
 
 ###### Addition
