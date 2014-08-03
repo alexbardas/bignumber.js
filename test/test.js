@@ -48,6 +48,9 @@ describe('BigNumber.js', function () {
             BigNumber(-5)._compare(-4).should.equal(-1);
             BigNumber(-97)._compare(-12).should.equal(-1);
             BigNumber(-97)._compare(-102).should.equal(1);
+            BigNumber(0)._compare(0).should.equal(0);
+            BigNumber(97)._compare(0).should.equal(1);
+            BigNumber(-97)._compare(0).should.equal(-1);
         }),
         it('should test lt (less than)', function () {
             BigNumber(517).lt(518).should.equal(true);
