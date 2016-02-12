@@ -1,6 +1,6 @@
 {
     "name": "big-number",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Light, ultra-fast javascript implementation for BigIntegers (base arithmetic operations)",
     "keywords": ["number", "bigint", "bignumber", "big-number", "bignumbers", "arithmetic", "operations"],
     "author": "Alex Bardas <alexbardas@gmail.com>",
@@ -9,12 +9,15 @@
         "type": "git",
         "url": "git@github.com:alexbardas/bignumber.js.git"
     },
+    "scripts": {
+        "test": "mocha test/"
+    },
     "devDependencies": {
-        "mocha": ">= 1.4",
-        "should": ">= 1.1"
+        "mocha": "^2.3.0",
+        "should": "^3.3.0"
     },
     "license": "MIT",
     "engines": {
-        "node": ">= 0.4.x"
+        "node": ">= 0.8.x"
     }
 }
