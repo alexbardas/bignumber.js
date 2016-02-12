@@ -218,6 +218,10 @@ footer {
   }
 }
 
+#result {
+    word-wrap: break-word;
+}
+
 @media print, screen and (max-width: 720px) {
   body {
     word-wrap:break-word;
