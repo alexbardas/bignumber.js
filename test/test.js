@@ -245,6 +245,7 @@ describe('BigNumber.js', function () {
             BigNumber(517).isZero().should.equal(false);
             BigNumber(0).isZero().should.equal(true);
             BigNumber([0]).isZero().should.equal(true);
+            BigNumber(000).isZero().should.equal(true);
         })
     }),
     describe('#abs()', function () {
