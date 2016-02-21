@@ -1,8 +1,8 @@
 /*
  * written with Mocha Framework
 */
-should = require('should')
-BigNumber = require('../').n
+should = require('should');
+BigNumber = require('../');
 
 describe('BigNumber.js', function () {
     describe('#initialization', function () {
@@ -10,28 +10,38 @@ describe('BigNumber.js', function () {
             BigNumber(517).val().should.equal("517");
             BigNumber(-517).val().should.equal("-517");
             BigNumber(BigNumber(517)).val().should.equal("517");
-        }),
+        });
+
         it('should create a big number from an array', function () {
             BigNumber([5,1,7]).val().should.equal("517");
             BigNumber(["+",5,1,7]).val().should.equal("517");
             BigNumber(["-",5,1,7]).val().should.equal("-517");
-        }),
+        });
+
+        it('should create a big number from another big number', function () {
+            BigNumber(BigNumber(517)).val().should.equal("517");
+            BigNumber(BigNumber(-517)).val().should.equal("-517");
+        });
+
         it('should create positive or negative numbers from string', function () {
             BigNumber(517).sign.should.equal(1);
             BigNumber(-517).sign.should.equal(-1);
-        }),
+        });
+
         it('should create positive or negative numbers from array', function () {
             BigNumber(["+",5,1,7]).sign.should.equal(1);
             BigNumber(["-",5,1,7]).sign.should.equal(-1);
-        }),
+        });
+
         it('should throw error at object creation', function () {
             BigNumber("51s7").val().should.equal("Invalid Number");
             BigNumber([5, 14, 7, 9]).val().should.equal("Invalid Number");
             BigNumber([5, 2, "s", 9]).val().should.equal("Invalid Number");
             BigNumber("5s17").val().should.equal("Invalid Number");
             BigNumber([5,"s",1,7]).val().should.equal("Invalid Number");
-        })
-    }),
+        });
+    });
+
     describe('#compare()', function () {
         it('should compare 2 numbers', function () {
             BigNumber(517)._compare().should.equal(0);
@@ -51,7 +61,8 @@ describe('BigNumber.js', function () {
             BigNumber(0)._compare(0).should.equal(0);
             BigNumber(97)._compare(0).should.equal(1);
             BigNumber(-97)._compare(0).should.equal(-1);
-        }),
+        });
+
         it('should test lt (less than)', function () {
             BigNumber(517).lt(518).should.equal(true);
             BigNumber(517).lt(517).should.equal(false);
@@ -64,7 +75,8 @@ describe('BigNumber.js', function () {
             BigNumber(-5).lt(3).should.equal(true);
             BigNumber(-5).lt(-7).should.equal(false);
             BigNumber(-5).lt(-5).should.equal(false);
-        }),
+        });
+
         it('should test lte (less or equal than)', function () {
             BigNumber(517).lte(-517).should.equal(false);
             BigNumber(517).lte(517).should.equal(true);
@@ -72,13 +84,15 @@ describe('BigNumber.js', function () {
             BigNumber(-5).lte(5).should.equal(true);
             BigNumber(-5).lte(-5).should.equal(true);
             BigNumber(2).lte(-5).should.equal(false);
-        }),
+        });
+
         it('should test equals', function () {
             BigNumber(517).equals(516).should.equal(false);
             BigNumber(-9).equals(-9).should.equal(true);
             BigNumber(-9).equals(-91).should.equal(false);
             BigNumber(517).equals(517).should.equal(true);
-        }),
+        });
+
         it('should test gt (greater than)', function () {
             BigNumber(517).gt(517).should.equal(false);
             BigNumber(518).gt(517).should.equal(true);
@@ -88,7 +102,8 @@ describe('BigNumber.js', function () {
             BigNumber(0).gt(-9).should.equal(true);
             BigNumber(-1).gt(-1).should.equal(false);
             BigNumber(0).gt(0).should.equal(false);
-        }),
+        });
+
         it('should test gte (greater or equal than)', function () {
             BigNumber(-517).gte(517).should.equal(false);
             BigNumber(517).gte(517).should.equal(true);
@@ -97,7 +112,8 @@ describe('BigNumber.js', function () {
             BigNumber(32).gte(17).should.equal(true);
             BigNumber(32).gte(33).should.equal(false);
         })
-    }),
+    });
+
     describe('#plus()', function () {
         it('should add 2 positive numbers', function () {
             BigNumber(1).plus(0).val().should.equal("1");
@@ -114,7 +130,8 @@ describe('BigNumber.js', function () {
             BigNumber([5,3,7,9,4,6]).plus(985).val().should.equal("538931");
             BigNumber(9773).plus(227).val().should.equal("10000");
             BigNumber(199773).plus(227).val().should.equal("200000");
-        }),
+        });
+
         it('should add 2 numbers', function () {
             BigNumber(1).plus(-1).val().should.equal("0");
             BigNumber(1).plus(-7).val().should.equal("-6");
@@ -123,8 +140,9 @@ describe('BigNumber.js', function () {
             BigNumber(-121).plus(22).val().should.equal("-99");
             BigNumber(-121).plus(1105).val().should.equal("984");
             BigNumber(-5).plus(-99).val().should.equal("-104");
-        })
-    }),
+        });
+    });
+
     describe('#minus()', function () {
         it('should subtract 2 positive numbers obtaining a positive number', function () {
             BigNumber(5).minus().val().should.equal("5");
@@ -140,12 +158,14 @@ describe('BigNumber.js', function () {
             BigNumber(19).minus(0).val().should.equal("19");
             BigNumber(10000).minus(227).val().should.equal("9773");
             BigNumber(200000).minus(227).val().should.equal("199773");
-        }),
+        });
+
         it('should subtract 2 positive numbers obtaining a negative number', function () {
             BigNumber(5).minus(33).val().should.equal("-28");
             BigNumber(5).minus(104).val().should.equal("-99");
             BigNumber(0).minus(101).val().should.equal("-101");
-        }),
+        });
+
         it('should subtract 2 numbers', function () {
             BigNumber(55).minus(57).val().should.equal("-2");
             BigNumber(5).minus(-33).val().should.equal("38");
@@ -159,8 +179,9 @@ describe('BigNumber.js', function () {
             BigNumber(-101).minus(-1010).val().should.equal("909");
             BigNumber(-5).minus(99).val().should.equal("-104");
             BigNumber(-5).minus(-15).val().should.equal("10");
-        })
-    }),
+        });
+    });
+
     describe('#multiply()', function () {
         it('should multiply 2 positive numbers', function () {
             BigNumber(5).multiply(0).val().should.equal("0");
@@ -172,15 +193,17 @@ describe('BigNumber.js', function () {
             BigNumber(100).multiply(5).val().should.equal("500");
             BigNumber(54325).multiply(543).val().should.equal("29498475");
             BigNumber(1).multiply(100000).val().should.equal("100000");
-        }),
+        });
+
         it('should multiply 2 positive numbers', function () {
             BigNumber(-5).multiply(0).val().should.equal("0");
             BigNumber(-1).multiply(-1).val().should.equal("1");
             BigNumber(5).multiply(-1).val().should.equal("-5");
             BigNumber(-5).multiply(20).val().should.equal("-100");
             BigNumber(17).multiply(-12).val().should.equal("-204");
-        })
-    }),
+        });
+    });
+
     describe('#divide()', function () {
         it('should divide 2 positive numbers', function () {
             BigNumber(5).divide(0).val().should.equal("Invalid Number - Division By Zero");
@@ -188,7 +211,8 @@ describe('BigNumber.js', function () {
             BigNumber(99).divide(5).val().should.equal("19");
             BigNumber(7321).divide(153).val().should.equal("47");
             BigNumber(919).divide(153).val().should.equal("6");
-        }),
+        });
+
         it('should divide 2 numbers', function () {
             BigNumber(-5).divide(1).val().should.equal("-5");
             BigNumber(-5).divide(-1).val().should.equal("5");
@@ -205,15 +229,17 @@ describe('BigNumber.js', function () {
             BigNumber(-17).divide(-9).val().should.equal("1");
             BigNumber(-17).divide(3).val().should.equal("-5");
             BigNumber(99).divide(-17).val().should.equal("-5");
-        }),
+        });
+
         it('should return the division rest', function () {
             BigNumber(7321).divide(153).rest.val().should.equal("130");
             BigNumber(3).divide(2).rest.val().should.equal("1");
             BigNumber(9).divide(3).rest.val().should.equal("0");
             BigNumber(93).divide(21).rest.val().should.equal("9");
             BigNumber(100).divide(53).rest.val().should.equal("47");
-        })
-    }),
+        });
+    });
+
     describe('#mod()', function () {
         it('should return the remainder of 2 numbers division', function () {
             BigNumber(7321).mod(153).val().should.equal("130");
@@ -221,8 +247,9 @@ describe('BigNumber.js', function () {
             BigNumber(9).mod(3).val().should.equal("0");
             BigNumber(93).mod(21).val().should.equal("9");
             BigNumber(100).mod(53).val().should.equal("47");
-        })
-    }),
+        });
+    });
+
     describe('#pow()', function () {
         it('should raise a a number to a positive integer power', function () {
             BigNumber(5).pow(0).val().should.equal("1");
@@ -238,27 +265,31 @@ describe('BigNumber.js', function () {
             BigNumber(2).pow(32).val().should.equal("4294967296");
             BigNumber(4).pow(3).val().should.equal("64");
             BigNumber(999999).pow(30).val().should.equal("999970000434995940027404857494593772964205852910692880044960372786493105240295422519882625422555240236493170372730045000692855852922964200593774857494027404995940000434999970000001");
-        })
-    }),
+        });
+    });
+
     describe('#isZero()', function () {
         it('should test if the big number is zero', function () {
             BigNumber(517).isZero().should.equal(false);
             BigNumber(0).isZero().should.equal(true);
             BigNumber([0]).isZero().should.equal(true);
-            BigNumber(000).isZero().should.equal(true);
-        })
-    }),
+            BigNumber([0,0]).isZero().should.equal(true);
+            BigNumber('000').isZero().should.equal(true);
+        });
+    });
+
     describe('#abs()', function () {
         it('should return absolute value of number', function () {
             BigNumber(517).abs().val().should.equal("517");
             BigNumber(-517).abs().val().should.equal("517");
-        })
-    }),
+        });
+    });
+
     describe('chainable tests', function () {
         it('should test random chainable operations', function () {
             var a = 1970485694, b = 153487287;
             BigNumber(a).add(1).multiply(BigNumber(b).add(1)).multiply(BigNumber(a).add(2).add(BigNumber(b))).divide(2).val().should.equal("321191979129581791629406140");
             BigNumber(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).val().should.equal("27569123001");
-        })
-    })
-})
+        });
+    });
+});

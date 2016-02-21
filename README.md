@@ -2,32 +2,34 @@
 
 [![Build Status](https://secure.travis-ci.org/alexbardas/bignumber.js.png)](http://travis-ci.org/alexbardas/bignumber.js)
 
-BigNumber.js is a light javascript library for node.js and the browser, dealing
-with operations on big integers.
+BigNumber.js is a light javascript library for node.js and the browser. It supports arithmetic operations on Big Integers.
 
-It does one thing, implementing only the main arithmetic operations for big integers,
-but it does it `very well and very fast`.
+It is build with performance in mind, uses the fastest algorithms and supports all basic arithmetic operations
+(+, -, *, /, %, ^, abs). Works with both positive and negative big integers.
 
-It is build with performance in mind and supports all basic arithmetic operations
-(+, -, *, /, %, ^, abs). Works with both positive and negative integers.
+: (http://alexbardas.github.io/bignumber.js/)
 
-You can do a live test here: (http://alexbardas.github.io/bignumber.js/)
+Install:
+npm install
+
+Test:
+npm test
 
 Usage:
 
 * in node:
 ```javascript
-	var BigNumber = require('big-number').n;
+	var BigNumber = require('big-number');
 
-    BigNumber(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).pow(2)
+    BigNumber(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).pow(2);
     // 760056543044267246001
 ```
 
 * in the browser:
 ```javascript
-	<script src ="bignumber.js"></script>
+	<script src ="big-number.js"></script>
 
-    n(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).pow(2)
+    n(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).pow(2);
     // 760056543044267246001
 ```
 
