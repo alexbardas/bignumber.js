@@ -292,4 +292,21 @@ describe('BigNumber.js', function () {
             BigNumber(5).plus(97).minus(53).plus(434).multiply(5435423).add(321453).multiply(21).div(2).val().should.equal("27569123001");
         });
     });
+
+    describe('very big numbers', function () {
+        it('should test main arithmetic on very large integers', function () {
+            var a=BigNumber("43216789895328312675790036721362674782378923750950234212368965373910384654");
+            var b=BigNumber("85764636478697019837453424264758699685764562524345456576868");
+            var x = BigNumber(a);
+            x.add(b).val().should.equal("43216789895328398440426515418382512235803188509649919976931489719366961522");
+            x = BigNumber(a);
+            x.minus(b).val().should.equal("43216789895328226911153558024342837328954658992250548447806441028453807786");
+            x = BigNumber(a);
+            x.multiply(b).val().should.equal("3706472275149059366968352499608225426876935061337924498923340460238964318011366196170940767807131779369992004353943009853967998583672");
+            x = BigNumber(a);
+            x.divide(b).val().should.equal("503899878431396");
+            x = BigNumber(a);
+            x.divide(b).rest.val().should.equal("13662369696833870468897163678348569097398678349966371836926");
+        });
+    });
 });
