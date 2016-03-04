@@ -1,23 +1,36 @@
 {
-    "name": "big-number",
-    "version": "0.4.0",
-    "description": "Light, ultra-fast javascript implementation for BigIntegers (base arithmetic operations)",
-    "keywords": ["number", "big", "int", "integer", "bigint", "big integer", "bignumber", "big-number", "bignumbers", "arithmetic", "operations"],
-    "author": "Alex Bardas <alexbardas@gmail.com>",
-    "main": "./index",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:alexbardas/bignumber.js.git"
-    },
-    "scripts": {
-        "test": "mocha test/"
-    },
-    "devDependencies": {
-        "mocha": "^2.3.0",
-        "should": "^3.3.0"
-    },
-    "license": "MIT",
-    "engines": {
-        "node": ">= 0.10.x"
-    }
+  "name": "big-number",
+  "version": "0.4.0",
+  "description": "Light, ultra-fast javascript implementation for BigIntegers (base arithmetic operations)",
+  "keywords": [
+    "number",
+    "big",
+    "int",
+    "integer",
+    "bigint",
+    "big integer",
+    "bignumber",
+    "big-number",
+    "bignumbers",
+    "arithmetic",
+    "operations"
+  ],
+  "author": "Alex Bardas <alexbardas@gmail.com>",
+  "main": "./index",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alexbardas/bignumber.js.git"
+  },
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "mocha": "^2.3.0",
+    "should": "^3.3.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.10.x"
+  }
 }
