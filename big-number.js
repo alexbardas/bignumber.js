@@ -1,7 +1,7 @@
-/*!
+/**
  * big-number.js -> Arithmetic operations on big integers
  * Pure javascript implementation, no external libraries needed
- * Copyright(c) 2012-2016 Alex Bardas <alex.bardas@gmail.com>
+ * Copyright(c) 2012-2018 Alex Bardas <alex.bardas@gmail.com>
  * MIT Licensed
  * It supports the following operations:
  *      addition, subtraction, multiplication, division, power, absolute value
@@ -33,8 +33,8 @@
     };
 
     var errors = {
-        "invalid": "Invalid Number",
-        "division by zero": "Invalid Number - Division By Zero"
+        'invalid': 'Invalid Number',
+        'division by zero': 'Invalid Number - Division By Zero'
     };
 
     // Constructor function which creates a new BigNumber object
@@ -46,7 +46,7 @@
             return new BigNumber(initialNumber);
         }
 
-        this.number = []
+        this.number = [];
         this.sign = 1;
         this.rest = 0;
 
@@ -84,7 +84,7 @@
                 }
             }
         }
-    };
+    }
 
     BigNumber.prototype.addDigit = function(digit) {
         if (testDigit(digit)) {
@@ -283,7 +283,7 @@
         var index;
         var length;
         var result = [];
-        var rest = BigNumber();
+        var rest = BigNumber(0);
 
         // test if one of the numbers is zero
         if (bigNumber.isZero()) {
@@ -297,8 +297,10 @@
         bigNumber.sign = 1;
 
         // Skip division by 1
-        if (bigNumber.number.length === 1 && bigNumber.number[0] === 1)
+        if (bigNumber.number.length === 1 && bigNumber.number[0] === 1) {
+            this.rest = BigNumber(0);
             return this;
+        }
 
         for (index = this.number.length - 1; index >= 0; index--) {
             rest.multiply(10);
@@ -380,7 +382,7 @@
     BigNumber.prototype.toString = function() {
         var index;
         var str = '';
-        if (typeof this.number === "string") {
+        if (typeof this.number === 'string') {
             return this.number;
         }
 
@@ -402,8 +404,6 @@
     // CommonJS
     if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = BigNumber;
-    } else if (typeof define === 'function' && define.amd) {
-        define(['BigNumber'], BigNumber);
     } else if (typeof window !== 'undefined') {
         window.BigNumber = BigNumber;
     }

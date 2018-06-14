@@ -13,12 +13,12 @@
     "linebreak-style": [2, "unix"],
     "semi": [2, "always"],
     "semi-spacing": [2, {"before": false, "after": true}],
-    "space-after-keywords": [2, "always"],
     "space-before-blocks": 2,
     "space-before-function-paren": [2, "never"],
     "space-in-parens": [2, "never"]
   },
   "env": {
+    "mocha": true,
     "node": true,
     "browser": true
   },

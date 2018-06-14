@@ -1,1 +1,1 @@
-module.exports = require('./lib/big-number');
+module.exports = require('./big-number');
