@@ -32,6 +32,17 @@
         return Object.prototype.toString.call(arg) === '[object Array]';
     };
 
+    var isValidType = function(number) {
+        return [
+            typeof number === 'number',
+            typeof number === 'string' && number.length > 0,
+            isArray(number) && number.length > 0,
+            number instanceof BigNumber
+        ].some(function(bool) {
+            return bool === true;
+        });
+    };
+
     var errors = {
         'invalid': 'Invalid Number',
         'division by zero': 'Invalid Number - Division By Zero'
@@ -50,17 +61,17 @@
         this.sign = 1;
         this.rest = 0;
 
-        if (!initialNumber) {
-            this.number = [0];
-            return;
-        }
-
-        // The initial number can be an array or object
+        // The initial number can be an array, string, number of another big number
         // e.g. array     : [3,2,1], ['+',3,2,1], ['-',3,2,1]
         //      number    : 312
         //      string    : '321', '+321', -321'
         //      BigNumber : BigNumber(321)
         // Every character except the first must be a digit
+
+        if (!isValidType(initialNumber)) {
+            this.number = errors['invalid'];
+            return;
+        }
 
         if (isArray(initialNumber)) {
             if (initialNumber.length && initialNumber[0] === '-' || initialNumber[0] === '+') {
@@ -97,16 +108,21 @@
         return this;
     };
 
+    BigNumber.prototype.isEven = function() {
+        return this.number[0] % 2 === 0;
+    };
+
     // returns:
+    //      null if this.number is not a number
     //      0 if this.number === number
     //      -1 if this.number < number
     //      1 if this.number > number
     BigNumber.prototype._compare = function(number) {
-        // if the function is called with no arguments then return 0
         var bigNumber;
         var index;
-        if (typeof number === 'undefined') {
-            return 0;
+
+        if (!isValidType(number)) {
+            return null;
         }
 
         bigNumber = BigNumber(number);
@@ -290,7 +306,8 @@
             this.number = errors['division by zero'];
             return this;
         } else if (this.isZero()) {
-            return BigNumber(0);
+            this.rest = BigNumber(0);
+            return this;
         }
 
         this.sign *= bigNumber.sign;
@@ -335,26 +352,31 @@
         if (typeof number === 'undefined')
             return;
         var bigNumber;
-        // Convert the argument to a number
-        number = +number;
-        if (number === 0) {
+        var bigNumberPower;
+        // Convert the argument to a big number
+        if (!isValidType(number)) {
+            this.number = errors['invalid'];
+            return;
+        }
+        bigNumberPower = BigNumber(number);
+        if (bigNumberPower.isZero()) {
             return BigNumber(1);
         }
-        if (number === 1) {
+        if (bigNumberPower.val() === '1') {
             return this;
         }
 
         bigNumber = BigNumber(this);
 
         this.number = [1];
-        while (number > 0) {
-            if (number % 2 === 1) {
+        while (bigNumberPower.gt(0)) {
+            if (!bigNumberPower.isEven()) {
                 this.multiply(bigNumber);
-                number--;
+                bigNumberPower.subtract(1);
                 continue;
             }
             bigNumber.multiply(bigNumber);
-            number = Math.floor(number / 2);
+            bigNumberPower.div(2);
         }
 
         return this;

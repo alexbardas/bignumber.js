@@ -1,29 +1,37 @@
-/*
- * written with Mocha Framework
-*/
+/* global should */
 require('should');
 var BigNumber = require('../');
 
 describe('BigNumber.js', function() {
     describe('#initialization', function() {
         it('should create a big number from a number', function() {
+            BigNumber(0).val().should.equal('0');
             BigNumber(517).val().should.equal('517');
             BigNumber(-517).val().should.equal('-517');
             BigNumber(BigNumber(517)).val().should.equal('517');
         });
 
         it('should create a big number from an array', function() {
+            BigNumber([0]).val().should.equal('0');
             BigNumber([5,1,7]).val().should.equal('517');
             BigNumber(['+',5,1,7]).val().should.equal('517');
             BigNumber(['-',5,1,7]).val().should.equal('-517');
         });
 
+        it('should create a big number from a string', function() {
+            BigNumber('0').val().should.equal('0');
+            BigNumber('517').val().should.equal('517');
+            BigNumber('+517').val().should.equal('517');
+            BigNumber('-517').val().should.equal('-517');
+        });
+
         it('should create a big number from another big number', function() {
+            BigNumber(BigNumber(0)).val().should.equal('0');
             BigNumber(BigNumber(517)).val().should.equal('517');
             BigNumber(BigNumber(-517)).val().should.equal('-517');
         });
 
-        it('should create positive or negative numbers from string', function() {
+        it('should create positive or negative numbers from a number', function() {
             BigNumber(517).sign.should.equal(1);
             BigNumber(-517).sign.should.equal(-1);
         });
@@ -34,6 +42,9 @@ describe('BigNumber.js', function() {
         });
 
         it('should throw error at object creation', function() {
+            BigNumber(undefined).val().should.equal('Invalid Number');
+            BigNumber('').val().should.equal('Invalid Number');
+            BigNumber([]).val().should.equal('Invalid Number');
             BigNumber('51s7').val().should.equal('Invalid Number');
             BigNumber([5, 14, 7, 9]).val().should.equal('Invalid Number');
             BigNumber([5, 2, 's', 9]).val().should.equal('Invalid Number');
@@ -44,7 +55,7 @@ describe('BigNumber.js', function() {
 
     describe('#compare()', function() {
         it('should compare 2 numbers', function() {
-            BigNumber(517)._compare().should.equal(0);
+            should(BigNumber(517)._compare()).equal(null);
             BigNumber(517)._compare(5170).should.equal(-1);
             BigNumber(517)._compare(65).should.equal(1);
             BigNumber(517)._compare(925).should.equal(-1);
@@ -91,6 +102,10 @@ describe('BigNumber.js', function() {
             BigNumber(-9).equals(-9).should.equal(true);
             BigNumber(-9).equals(-91).should.equal(false);
             BigNumber(517).equals(517).should.equal(true);
+            BigNumber(0).equals(undefined).should.equal(false);
+            BigNumber(100).equals(undefined).should.equal(false);
+            BigNumber(100).equals('100').should.equal(true);
+            BigNumber(100).equals('').should.equal(false);
         });
 
         it('should test gt (greater than)', function() {
@@ -244,6 +259,7 @@ describe('BigNumber.js', function() {
         it('should return a BigNumber instance', function() {
             BigNumber(9).mod(3).should.be.an.instanceOf(BigNumber);
             BigNumber(9).mod(1).should.be.an.instanceOf(BigNumber);
+            BigNumber(0).mod(12).should.be.an.instanceOf(BigNumber);
         });
 
         it('should return the remainder of 2 numbers division', function() {

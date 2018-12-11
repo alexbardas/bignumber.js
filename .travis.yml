@@ -3,6 +3,7 @@ script:
     - npm test
     - npm run lint
 node_js:
+    - "11"
     - "10"
     - "9"
     - "8"

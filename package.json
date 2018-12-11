@@ -1,6 +1,6 @@
 {
   "name": "big-number",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Light, ultra-fast javascript implementation for BigIntegers (base arithmetic operations)",
   "keywords": [
     "number",
@@ -26,12 +26,9 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
-    "mocha": "^5.2.0",
-    "should": "^13.2.1"
+    "eslint": "5.10.0",
+    "mocha": "5.2.0",
+    "should": "13.2.3"
   },
-  "license": "MIT",
-  "engines": {
-    "node": ">= 0.10.x"
-  }
+  "license": "MIT"
 }
